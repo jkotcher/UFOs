@@ -3,7 +3,7 @@ const tableData = data;
 
 // Reference the HTML table using d3
 var tbody = d3.select("tbody");
-
+// function to create table using data from data.js file
 function buildTable(data) {
 
     tbody.html("");
@@ -22,7 +22,26 @@ function buildTable(data) {
 
 
 function handleClick() {
+    // Grab the datetime value from the filter
     let date = d3.select("#datetime").property("value");
 
     let filteredData = tableData;
+
+    // Check to see if date was entered and filter based on that date
+
+    if (date) {
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+
+    // Rebuild the table using the filtered data
+    // @Note If no date was entered then the table will just be 
+    // the original tableData
+    
+    buildTable(filteredData);
 }
+
+// Attach an event to listen for the form button
+d3.select("#filter-btn").on("click", handleClick);
+
+// Build the table when the page loads
+buildTable(tableData);
