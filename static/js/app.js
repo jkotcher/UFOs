@@ -40,7 +40,9 @@ function updateFilters() {
     // to the filters list. Otherwise, clear that filter from the filters object.
     if (inputValue) {
       filters[inputId] = inputValue;
-    } else {filters = {};};
+    } else {
+     delete filters[inputId];
+    }
   
     // 6. Call function to apply all filters and rebuild the table
     filterTable(filters);
@@ -63,7 +65,7 @@ function updateFilters() {
   
     // 10. Finally, rebuild the table using the filtered data
     buildTable(filteredData);
-  }
+  };
   
   // 2. Attach an event to listen for changes to each filter
   d3.selectAll("input").on("change", updateFilters);
